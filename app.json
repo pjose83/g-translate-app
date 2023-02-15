@@ -28,6 +28,12 @@
     },
     "web": {
       "favicon": "./assets/favicon.png"
-    }
+    },
+    "extra": {
+      "eas": {
+        "projectId": "3636107a-85fa-4e2e-8329-6b866eda1b85"
+      }
+    },
+    "owner": "coderwin"
   }
 }
