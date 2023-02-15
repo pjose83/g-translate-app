@@ -1,5 +1,4 @@
 import { createNativeStackNavigator } from '@react-navigation/native-stack'
-import { StyleSheet } from 'react-native'
 import { IStackParams } from './interfaces'
 import { routes } from './routes'
 
@@ -9,7 +8,7 @@ export const StackNavigator = () => {
   const { Navigator, Screen } = stack
 
   return (
-    <Navigator>
+    <Navigator screenOptions={{ headerShown: false }}>
       {routes.map(({ name, Component }) => (
         <Screen
           key={name}
@@ -20,5 +19,3 @@ export const StackNavigator = () => {
     </Navigator>
   )
 }
-
-const styles = StyleSheet.create({})
