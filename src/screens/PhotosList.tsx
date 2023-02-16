@@ -1,8 +1,8 @@
 import { NativeStackScreenProps } from '@react-navigation/native-stack'
 import { Text, Image, StyleSheet, View, TouchableOpacity, Dimensions } from 'react-native'
-import { boxRadius, colors, shadow } from '../constans/globalStyles'
+import { BOX_RADIUS, COLORS, SHADOW } from '../constans/globalStyles'
 import { DatePicker } from '../lib/components/DatePicker'
-import { IStackParams } from '../routes/interfaces'
+import { IStackParams } from '../lib/models'
 import { Icon } from '../lib/components/Icon'
 import { ICONS } from '../constans/icons'
 import avatar from "../../assets/avatar.png"
@@ -50,13 +50,13 @@ const styles = StyleSheet.create({
     marginBottom: 20
   },
   strongText: {
-    color: colors.dark,
+    color: COLORS.dark,
     fontWeight: "700",
     fontSize: 16,
     textAlign: "center"
   },
   softText: {
-    color: colors.tertiary,
+    color: COLORS.tertiary,
     fontSize: 16,
     textAlign: "center",
     alignSelf: "center",
@@ -67,12 +67,13 @@ const styles = StyleSheet.create({
     marginLeft: 50,
   },
   cameraBtn: {
-    ...boxRadius,
-    ...shadow,
-    backgroundColor: colors.primary,
+    ...BOX_RADIUS,
+    ...SHADOW,
+    backgroundColor: COLORS.primary,
     padding: 10,
     position: "absolute",
     bottom: 20,
-    right: 20
+    right: 20,
+    zIndex: 100
   }
 })

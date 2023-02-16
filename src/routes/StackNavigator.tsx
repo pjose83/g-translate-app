@@ -1,8 +1,23 @@
 import { createNativeStackNavigator } from '@react-navigation/native-stack'
-import { IStackParams } from './interfaces'
-import { routes } from './routes'
+import { IRoutes, IStackParams } from '../lib/models'
+import { Camera, PhotoDetails, PhotosList } from "../screens"
 
 const stack = createNativeStackNavigator<IStackParams>()
+
+export const routes: IRoutes[] = [
+  {
+    name: "PhotosList",
+    Component: PhotosList
+  },
+  {
+    name: "PhotoDetails",
+    Component: PhotoDetails
+  },
+  {
+    name: "Camera",
+    Component: Camera
+  }
+]
 
 export const StackNavigator = () => {
   const { Navigator, Screen } = stack

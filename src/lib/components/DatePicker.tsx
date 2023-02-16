@@ -1,5 +1,5 @@
 import { StyleSheet, Text, View } from 'react-native'
-import { boxRadius, colors } from '../../constans/globalStyles'
+import { BOX_RADIUS, COLORS } from '../../constans/globalStyles'
 import { ICONS } from '../../constans/icons'
 import { Icon } from './Icon'
 
@@ -16,24 +16,24 @@ export const DatePicker = () => {
 
 const styles = StyleSheet.create({
   container: {
-    ...boxRadius,
+    ...BOX_RADIUS,
     width: "100%",
-    backgroundColor: colors.primary,
+    backgroundColor: COLORS.primary,
     alignItems: "center",
     justifyContent: "space-between",
     flexDirection: "row",
     paddingRight: 10
   },
   picker: {
-    ...boxRadius,
-    backgroundColor: colors.secondary,
+    ...BOX_RADIUS,
+    backgroundColor: COLORS.secondary,
     padding: 5,
     width: "90%",
     alignItems: "flex-start"
   },
   calendarIcon: {
-    ...boxRadius,
+    ...BOX_RADIUS,
     padding: 5,
-    backgroundColor: colors.light
+    backgroundColor: COLORS.light
   }
 })

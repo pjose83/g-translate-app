@@ -1,4 +1,4 @@
-export const colors = {
+export const COLORS = {
   primary: "#F1DA0E",
   secondary: "#D9D9D9",
   tertiary: "#989898",
@@ -6,10 +6,10 @@ export const colors = {
   dark: "#000000"
 }
 
-export const boxRadius = {
+export const BOX_RADIUS = {
   borderRadius: 100
 }
 
-export const shadow = {
+export const SHADOW = {
   elevation: 3
 }
