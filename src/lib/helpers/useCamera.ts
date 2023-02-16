@@ -1,5 +1,5 @@
-import { MutableRefObject, useContext, useRef, useState } from 'react'
-import { Camera, CameraProps, CameraType } from 'expo-camera'
+import { useContext, useRef, useState } from 'react'
+import { Camera, CameraType } from 'expo-camera'
 import { createAssetAsync } from 'expo-media-library'
 // import { store } from '../context/store'
 // import { getData, setData } from '../helpers/storage'
@@ -20,14 +20,14 @@ export const useCamera = () => {
 	const [image, setImage] = useState(null)
 	const [flash, setFlash] = useState(1)
 
-	const cameraRef: any = useRef()
+	const cameraRef = useRef<Camera>(null)
 
 	const takePicture = async () => {
 		if (cameraRef) {
 			try {
-				const { uri } = await cameraRef.current?.takePictureAsync()
-				setImage(uri)
-				console.log(image)
+				const data = await cameraRef.current?.takePictureAsync()
+				// setImage(uri)
+				console.log(data?.uri)
 			} catch (error) {
 				console.log('Error on takePicture :', error)
 			}
