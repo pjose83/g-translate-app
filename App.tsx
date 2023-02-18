@@ -1,6 +1,7 @@
-import { NavigationContainer } from '@react-navigation/native';
-import { SafeAreaView, StatusBar, StyleSheet } from 'react-native';
-import { StackNavigator } from './src/routes/StackNavigator';
+import { NavigationContainer } from "@react-navigation/native"
+import { SafeAreaView, StatusBar, StyleSheet } from "react-native"
+import { COLORS } from "./src/constans"
+import { StackNavigator } from "./src/routes/StackNavigator"
 
 export default function App() {
   return (
@@ -8,14 +9,14 @@ export default function App() {
       <SafeAreaView style={styles.safeAreaView}>
         <StatusBar
           hidden={false}
-          backgroundColor="#fff"
-          barStyle={'dark-content'}
+          backgroundColor={COLORS.light}
+          barStyle={"dark-content"}
           translucent={true}
         />
         <StackNavigator />
       </SafeAreaView>
     </NavigationContainer>
-  );
+  )
 }
 
 const styles = StyleSheet.create({

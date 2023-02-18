@@ -1,32 +1,24 @@
-import { NativeStackScreenProps } from '@react-navigation/native-stack'
-import { Text, Image, StyleSheet, View, TouchableOpacity, Dimensions } from 'react-native'
-import { BOX_RADIUS, COLORS, SHADOW } from '../constans/globalStyles'
-import { DatePicker } from '../lib/components/DatePicker'
-import { IStackParams } from '../lib/models'
-import { Icon } from '../lib/components/Icon'
-import { ICONS } from '../constans/icons'
-import avatar from "../../assets/avatar.png"
-import arrow from '../../assets/arrow.png'
-
-const { width } = Dimensions.get("window")
+import { NativeStackScreenProps } from "@react-navigation/native-stack"
+import { StyleSheet, View, TouchableOpacity } from "react-native"
+import { BOX_RADIUS, COLORS, SHADOW } from "../constans/globalStyles"
+import { DatePicker } from "../lib/components/DatePicker"
+import { IStackParams } from "../lib/models"
+import { Icon } from "../lib/components/Icon"
+import { ICONS } from "../constans/icons"
+import { EmptyList } from "../lib/components"
+import { useImageStore } from "../store/states"
 
 interface IPhotosList extends NativeStackScreenProps<IStackParams, "PhotosList">{}
 
 export const PhotosList = ({ navigation }: IPhotosList) => {
   const navigateToCamera = () => navigation.navigate("Camera")
 
+  const { imageList } = useImageStore()
+
   return (
     <View style={styles.container}>
       <DatePicker />
-      <View style={styles.emptyList}>
-        <Image source={avatar} />
-        <Text style={styles.strongText}>There is nothing to show</Text>
-        <Text style={styles.softText}>Ups it seems you have no images yet</Text>
-        <Image
-          source={arrow}
-          style={styles.arrow}
-        />
-      </View>
+      {imageList.length ? <></> : <EmptyList />}
       <TouchableOpacity
         style={styles.cameraBtn}
         activeOpacity={.5}
@@ -44,27 +36,7 @@ const styles = StyleSheet.create({
     padding: 20,
     alignItems: "center",
     justifyContent: "space-between",
-  },
-  emptyList: {
-    alignItems: "center",
-    marginBottom: 20
-  },
-  strongText: {
-    color: COLORS.dark,
-    fontWeight: "700",
-    fontSize: 16,
-    textAlign: "center"
-  },
-  softText: {
-    color: COLORS.tertiary,
-    fontSize: 16,
-    textAlign: "center",
-    alignSelf: "center",
-    width: width * .4,
-    marginBottom: 20
-  },
-  arrow: {
-    marginLeft: 50,
+    backgroundColor: COLORS.light
   },
   cameraBtn: {
     ...BOX_RADIUS,
