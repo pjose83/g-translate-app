@@ -25,7 +25,9 @@
     "zustand": "^4.3.3"
   },
   "devDependencies": {
-    "@babel/core": "^7.12.9"
+    "@babel/core": "^7.12.9",
+    "prop-types": "^15.8.1",
+    "react-native-swipe-list-view": "^3.2.9"
   },
   "private": true
 }

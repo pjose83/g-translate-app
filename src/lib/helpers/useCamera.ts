@@ -1,39 +1,35 @@
-import { useContext, useRef, useState } from "react"
-import { Camera, CameraCapturedPicture, CameraPictureOptions, CameraType } from "expo-camera"
-import { createAssetAsync } from "expo-media-library"
+import { useRef, useState } from "react"
+import { Camera, CameraCapturedPicture, CameraType } from "expo-camera"
+import { createAssetAsync, createAlbumAsync, addAssetsToAlbumAsync, getAlbumAsync, getAssetsAsync } from "expo-media-library"
 import { useImageStore } from "../../store/states"
-// import { store } from "../context/store"
-// import { getData, setData } from "../helpers/storage"
 
 export const useCamera = () => {
 	const [type, setType] = useState(CameraType.back)
-	// const [image, setImage] = useState(null)
 	const [flash, setFlash] = useState(1)
 
 	const cameraRef = useRef<Camera>(null)
+
 	const { setImage, image } = useImageStore()
 
 	const takePicture = async () => {
 		if (cameraRef) {
 			try {
 				const { uri } = await cameraRef.current?.takePictureAsync() as CameraCapturedPicture
-				const date  = new Date()
 				setImage(uri)
-				console.log()
-				console.log(date.toDateString())
 			} catch (error) {
 				console.log("Error on takePicture :", error)
 			}
 		}
 	}
-
+	
 	const saveImage = async () => {
 		if (image) {
 			try {
-				await createAssetAsync(image)
-        // const newGalleryImg = [{ desc: inputText, image }, ...newData]
-				// setGalleryImg(newGalleryImg)
-				// setImage(null)
+				const asset = await createAssetAsync(image)
+				await createAlbumAsync("Image to Text", asset)
+				const a = await getAssetsAsync({ album: asset.albumId })
+				console.log(a.assets.length)
+				setImage(null)
 			} catch (error) {
 				console.log("Error on saveImage :", error)
 			}
@@ -55,7 +51,7 @@ export const useCamera = () => {
 	return {
 		takePicture,
 		deleteImage,
-		// saveImage,
+		saveImage,
 		toggleCameraFlash,
 		toggleCameraType,
 		image,

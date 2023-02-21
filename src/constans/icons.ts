@@ -10,5 +10,7 @@ export const ICONS = {
   takePicture: "radio-button-on" as keyof typeof Ionicons.glyphMap,
   flash: "flash" as keyof typeof Ionicons.glyphMap,
   close: "close-sharp" as keyof typeof Ionicons.glyphMap,
-  flashOff: "flash-off" as keyof typeof Ionicons.glyphMap
+  flashOff: "flash-off" as keyof typeof Ionicons.glyphMap,
+  check: "checkmark" as keyof typeof Ionicons.glyphMap,
+  repeat: "repeat-sharp" as keyof typeof Ionicons.glyphMap
 }

@@ -7,6 +7,7 @@ import { Icon } from "../lib/components/Icon"
 import { ICONS } from "../constans/icons"
 import { EmptyList } from "../lib/components"
 import { useImageStore } from "../store/states"
+import { List } from "../lib/components/photosList/List"
 
 interface IPhotosList extends NativeStackScreenProps<IStackParams, "PhotosList">{}
 
@@ -18,7 +19,8 @@ export const PhotosList = ({ navigation }: IPhotosList) => {
   return (
     <View style={styles.container}>
       <DatePicker />
-      {imageList.length ? <></> : <EmptyList />}
+      {/* {imageList.length ? <></> : <EmptyList />} */}
+      <List />
       <TouchableOpacity
         style={styles.cameraBtn}
         activeOpacity={.5}
