@@ -1,17 +1,33 @@
-import { create } from "zustand"
+import { createStoreContext } from "./zustand"
+import { effects } from "./effetcs"
 
-type imageType = string | null
-
-interface IImageStore {
-  image: imageType
-  imageList: imageType[]
-  setImage: (image: imageType) => void
+export interface IUseStore {
+	image?: string
+	imageList?: any[]
+	effects: {
+		setImage: (image: any) => void
+		setImageList: (imageList: any) => void
+		setIsLoading: (state: boolean) => void
+	}
 }
 
-export const useImageStore = create<IImageStore>((set) => ({
-  image: null,
-  imageList: [],
-  setImage: (image) => set((state) => ({
-    image: state.image = image
-  }))
-}))
+const INITIAL_STATE = (
+	set: (newState: Record<string, unknown>) => void,
+	get: () => IUseStore,
+) => {
+	return {
+		name: "useStore",
+		image: "",
+		imageList: [],
+	}
+}
+
+const storage = (
+	set: (newState: Record<string, unknown>) => void,
+	get: () => IUseStore,
+) => ({
+	...INITIAL_STATE(set, get),
+	effects: effects(set, get),
+})
+
+export const useStore = createStoreContext(storage)

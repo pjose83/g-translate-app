@@ -1,34 +1,32 @@
 import { useRef, useState } from "react"
 import { Camera, CameraCapturedPicture, CameraType } from "expo-camera"
-import { createAssetAsync, createAlbumAsync, addAssetsToAlbumAsync, getAlbumAsync, getAssetsAsync } from "expo-media-library"
-import { useImageStore } from "../../store/states"
+import { createAssetAsync, createAlbumAsync } from "expo-media-library"
+import { useStore } from "../../store/states"
 
 export const useCamera = () => {
+	const { image, effects } = useStore()
+	const { setImage } = effects
 	const [type, setType] = useState(CameraType.back)
 	const [flash, setFlash] = useState(1)
 
 	const cameraRef = useRef<Camera>(null)
 
-	const { setImage, image } = useImageStore()
-
 	const takePicture = async () => {
 		if (cameraRef) {
 			try {
 				const { uri } = await cameraRef.current?.takePictureAsync() as CameraCapturedPicture
-				setImage(uri)
+				await setImage(uri)
 			} catch (error) {
 				console.log("Error on takePicture :", error)
 			}
 		}
 	}
-	
+
 	const saveImage = async () => {
 		if (image) {
 			try {
 				const asset = await createAssetAsync(image)
 				await createAlbumAsync("Image to Text", asset)
-				const a = await getAssetsAsync({ album: asset.albumId })
-				console.log(a.assets.length)
 				setImage(null)
 			} catch (error) {
 				console.log("Error on saveImage :", error)
@@ -39,14 +37,15 @@ export const useCamera = () => {
 	const deleteImage = () => setImage(null)
 
 	const toggleCameraType = () => {
-    const changeType = type === CameraType.back ? CameraType.front : CameraType.back
+		const changeType =
+			type === CameraType.back ? CameraType.front : CameraType.back
 		setType(changeType)
-  }
+	}
 
 	const toggleCameraFlash = () => {
-    const showFlash = flash === 1 ? 2 : 1
+		const showFlash = flash === 1 ? 2 : 1
 		setFlash(showFlash)
-  }
+	}
 
 	return {
 		takePicture,
@@ -57,6 +56,6 @@ export const useCamera = () => {
 		image,
 		type,
 		flash,
-		cameraRef,
+		cameraRef
 	}
 }

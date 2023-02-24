@@ -1,13 +1,11 @@
+import { useEffect } from "react"
 import { StatusBar, StyleSheet, TouchableOpacity, View } from "react-native"
 import { useNavigation } from "@react-navigation/native"
+import { usePermissions } from "expo-media-library"
 import { Camera as ExpoCamera } from "expo-camera"
 import { COLORS, ICONS } from "../../../constans"
 import { useCamera } from "../../helpers"
 import { Icon } from "../Icon"
-import { usePermissions } from "expo-media-library"
-import { useEffect } from "react"
-
-
 
 export const CameraPreview = () => {
   const [permissionResponse, requestPermission] = usePermissions();

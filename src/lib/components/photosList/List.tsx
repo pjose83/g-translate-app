@@ -1,75 +1,69 @@
-import { useState } from "react"
-import { StyleSheet, Text, View } from 'react-native'
+import { Pressable, StyleSheet, Text, useWindowDimensions, View, Image } from 'react-native'
 import { SwipeListView } from 'react-native-swipe-list-view'
-import { COLORS } from "../../../constans"
-
-interface IDataToRender {
-  item: JSX.Element | JSX.Element[]
-}
-
-interface ITest {
-  name: string
-}
+import { useNavigation } from "@react-navigation/native"
+import { COLORS, ICONS } from "../../../constans"
+import { useStore } from '../../../store/states'
+import { useImageStore } from "../../helpers"
+import { Icon } from "../Icon"
 
 export const List = () => {
-  const [galleryList, setGalleryList] = useState([])
+  const { width } = useWindowDimensions()
 
-  const test: ITest[] = [
-    {
-      name: "derwin",
-    },
-    {
-      name: "jose",
-    },
-    {
-      name: "mary",
-    },
-    {
-      name: "chocolate",
-    },
-    {
-      name: "cafe",
-    },
-  ]
+  const { imageList } = useStore()
+  const { handleDeleteAsset } = useImageStore()
 
-  const dataToRender = ({ item }: { item: ITest }) => (
-    <View style={styles.swipe}>
-      <Text>{item.name}</Text>
+  const navigation = useNavigation<any>()
+
+  const renderItem = ({ item }: { item: any }) => {
+    const handleAssetView = () => navigation.navigate("PhotoDetails", item.uri)
+    return (
+      <Pressable style={styles.swipe} onPress={handleAssetView}>
+        <Text>{item.name}</Text>
+        <Image source={{ uri: item.uri }} style={{ width: 60, height: 60, flex: 1 }} />
+      </Pressable>
+    )
+  }
+
+  const renderHiddenItem = () => (
+    <View style={styles.delete}>
+      <Icon name={ICONS.delete} />
     </View>
   )
-
-  const hiddenDataToRender = () => <Text>Delete</Text>
 
   return (
     <SwipeListView
       style={styles.list}
-      renderItem={dataToRender}
-      data={test}
-      renderHiddenItem={hiddenDataToRender}
-      leftOpenValue={75}
-      rightOpenValue={75}
-      ItemSeparatorComponent={() => <View style={{ margin: 10 }}/>}
-      
+      data={imageList}
+      renderItem={renderItem}
+      renderHiddenItem={renderHiddenItem}
+      disableRightSwipe
+      rightActivationValue={-199}
+      rightActionValue={-width}
+      swipeGestureEnded={handleDeleteAsset}
+      onRightActionStatusChange={() => {}}
+      ItemSeparatorComponent={() => <View style={{ margin: 5 }}/>}
+      keyExtractor={item => item.id}
+      showsVerticalScrollIndicator={false}
     />
   )
 }
 
 const styles = StyleSheet.create({
   swipe: {
-    width: "100%",
     backgroundColor: "#fff",
     alignItems: "center",
-    paddingVertical: 10,
-    borderWidth: 2,
-    borderColor: COLORS.dark
-    // alignSelf: "center"
-
+    justifyContent: "flex-start",
+    borderWidth: 2
   },
   list: {
-    // flex: 1,
     width: "100%",
-    // backgroundColor: "#f00",
-    padding: 20
-    
+    paddingVertical: 20
+  },
+  delete: {
+    backgroundColor: COLORS.primary,
+    flex: 1,
+    alignItems: "flex-end",
+    justifyContent: "center",
+    paddingHorizontal: 20
   }
 })

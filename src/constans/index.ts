@@ -1,2 +1,2 @@
-export * from './globalStyles';
-export * from './icons';
+export * from "./globalStyles"
+export * from "./icons"

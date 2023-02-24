@@ -1,12 +1,12 @@
 import { Image, StatusBar, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
 import { COLORS, ICONS } from "../../../constans"
-import { useImageStore } from "../../../store/states"
+import { useStore } from "../../../store/states"
 import { useCamera } from "../../helpers"
 import { Icon } from "../Icon"
 
 export const PictureTaked = () => {
   const { deleteImage, saveImage } = useCamera()
-  const { image } = useImageStore()
+  const { image } = useStore()
 
   return (
     <View style={{ flex: 1}}>

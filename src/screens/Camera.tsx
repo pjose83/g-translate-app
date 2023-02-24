@@ -1,13 +1,13 @@
 
 import { StyleSheet, View, Text, Button } from "react-native"
 import { Camera as ExpoCamera } from "expo-camera"
-import { useImageStore } from "../store/states"
-import { CameraPreview, PictureTaked } from "../lib/components/camera"
+import { CameraPreview, PictureTaked } from "../lib/components"
+import { useStore } from "../store/states"
 
 export const Camera = () => {
   const [permission, requestPermission] = ExpoCamera.useCameraPermissions()
 
-  const { image } = useImageStore()
+  const { image } = useStore()
 
   if (!permission) {
     // Camera permissions are still loading
@@ -24,7 +24,9 @@ export const Camera = () => {
     );
   }
 
-  return image ? <PictureTaked /> : <CameraPreview />
+  if (image) return <PictureTaked />
+
+  return <CameraPreview />
 }
 
 const styles = StyleSheet.create({

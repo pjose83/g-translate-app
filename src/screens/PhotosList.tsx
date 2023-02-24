@@ -1,26 +1,29 @@
+import { useEffect } from "react"
 import { NativeStackScreenProps } from "@react-navigation/native-stack"
 import { StyleSheet, View, TouchableOpacity } from "react-native"
-import { BOX_RADIUS, COLORS, SHADOW } from "../constans/globalStyles"
-import { DatePicker } from "../lib/components/DatePicker"
+import { BOX_RADIUS, COLORS, SHADOW, ICONS } from "../constans"
+import { DatePicker, Icon, EmptyList, List } from "../lib/components"
 import { IStackParams } from "../lib/models"
-import { Icon } from "../lib/components/Icon"
-import { ICONS } from "../constans/icons"
-import { EmptyList } from "../lib/components"
-import { useImageStore } from "../store/states"
-import { List } from "../lib/components/photosList/List"
+import { useImageStore } from "../lib/helpers"
+import { useStore } from "../store/states"
 
 interface IPhotosList extends NativeStackScreenProps<IStackParams, "PhotosList">{}
 
 export const PhotosList = ({ navigation }: IPhotosList) => {
   const navigateToCamera = () => navigation.navigate("Camera")
+  const { imageList, image } = useStore()
+  const { handleLoadImages } = useImageStore()
 
-  const { imageList } = useImageStore()
+  useEffect(() => {
+    (async () => {
+      await handleLoadImages()
+    })()
+  }, [image])
 
   return (
     <View style={styles.container}>
       <DatePicker />
-      {/* {imageList.length ? <></> : <EmptyList />} */}
-      <List />
+      {imageList.length ? <List /> : <EmptyList />}
       <TouchableOpacity
         style={styles.cameraBtn}
         activeOpacity={.5}
