@@ -26,7 +26,7 @@ export const useCamera = () => {
 		if (image) {
 			try {
 				const asset = await createAssetAsync(image)
-				await createAlbumAsync("Image to Text", asset)
+				await createAlbumAsync("Image-to-Text", asset)
 				setImage(null)
 			} catch (error) {
 				console.log("Error on saveImage :", error)

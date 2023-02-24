@@ -8,7 +8,7 @@ export const useImageStore = () => {
 
   const handleLoadImages = async () => {
     try {
-      const getAlbum = await getAlbumAsync("Image to Text")
+      const getAlbum = await getAlbumAsync("Image-to-Text")
       const { assets } = await getAssetsAsync({ album: getAlbum })
 			const dataToShow = getAlbum ? assets : []
       setImageList(dataToShow)

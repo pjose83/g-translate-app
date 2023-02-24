@@ -15,7 +15,7 @@ export const List = () => {
   const navigation = useNavigation<any>()
 
   const renderItem = ({ item }: { item: any }) => {
-    const handleAssetView = () => navigation.navigate("PhotoDetails", item.uri)
+    const handleAssetView = () => navigation.navigate("PhotoDetails", item)
     return (
       <Pressable style={styles.swipe} onPress={handleAssetView}>
         <Text>{item.name}</Text>
